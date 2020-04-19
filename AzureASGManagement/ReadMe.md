@@ -1,7 +1,7 @@
 
 # Scenario
 
-> VMs are being deployed into an Azure virtual networking environment. I need a way to managed Inbound and Outbound Networking Security rules automatically once provisioning.
+> VMs are being deployed into an Azure virtual networking environment. I need a way to managed Inbound and Outbound Networking Security rules automatically once provisioned.
 
   
 
