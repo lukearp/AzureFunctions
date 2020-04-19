@@ -30,7 +30,7 @@ namespace Az.NSG
                 foreach(JToken token in data)
                 {
                     log.LogInformation("Setting Interface: " + token.SelectToken("subject").ToString());
-                    if(GetEnvironmentVariable("resourceToMonitor").Split(": ")[1] == "NetworkInterfaces")
+                    if(token.SelectToken("subject").ToString().Contains("Microsoft.Network"))
                     {
                         success = NetworkInterfaces.SetASG(token.SelectToken("subject").ToString());
                     }

@@ -65,7 +65,7 @@
 2. Set WebHook to Function address.
 >* WebHook will need to be verified. This can be done by visiting the verification link in the verification post body. This can be seen if you uncomment line 27 and watch the function logs while saving the Event Grid subscription.
 
-3. Set Advanced Filter to 'subject String Contains "/providers/Microsoft.Network/networkInterfaces/"'.  You can also set to '/providers/Microsoft.Compute/virtualMachines/' if App Setting resourceToMonitor is not set to NetworkInterface.  This will monitor the Tag value on the VM Object only.
+3. Set Advanced Filter to 'subject String Contains "/providers/Microsoft.Network/networkInterfaces/"'.  You can also set to '/providers/Microsoft.Compute/virtualMachines/'.
 
 4. Create EventGrid Subscription
 
@@ -75,4 +75,4 @@
 
 1. This initial release only supports adding one ASG to one IPConfiguration on a Network Interface. I plan on adding the ability to assign multiple ASGs to Multiple IPConfigurations on a single Network Interface.
 
-2. This can monitor either NetworkInterfaces or VirtualMachines objects.  It can't do both at the same time.  I may add that in the future.  If you choose to monitor VMs, it will elminate the need to have the Network Interface Tagged, only the VM Object.  
+2. This can monitor either NetworkInterfaces or VirtualMachines objects.  It can't do both at the same time. 
