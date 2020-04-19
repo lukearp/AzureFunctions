@@ -23,16 +23,22 @@ namespace Az.NSG
             log.LogInformation("C# HTTP trigger function processed a request.");
 
             string requestBody = await new StreamReader(req.Body).ReadToEndAsync();
-            string success;
-            //log.LogInformation(requestBody);
+            string success = "Nothing was set";
+            log.LogInformation(requestBody);
             try {
                 JArray data = JArray.Parse(requestBody);
                 foreach(JToken token in data)
                 {
                     log.LogInformation("Setting Interface: " + token.SelectToken("subject").ToString());
-                    NetworkInterfaces.SetASG(token.SelectToken("subject").ToString());
+                    if(GetEnvironmentVariable("resourceToMonitor").Split(": ")[1] == "NetworkInterfaces")
+                    {
+                        success = NetworkInterfaces.SetASG(token.SelectToken("subject").ToString());
+                    }
+                    else
+                    {
+                        success = NetworkInterfaces.SetASGFromVM(token.SelectToken("subject").ToString());
+                    }
                 }
-                success = "SUCCESS";
             }
             catch(Exception e)
             {
@@ -125,7 +131,76 @@ namespace Az.NSG
             //Constructor
         }
 
-        public static void SetASG(string resourceId)
+        public static string SetASGFromVM(string vmResourceId)
+        {
+            bool success = true;
+            string vmApiVersion = "2019-07-01";
+            string uri = vmResourceId + "?api-version=" + vmApiVersion;
+            JObject vm = new JObject();
+            try {
+                vm = JObject.Parse(WebCalls.Get(uri));
+            }
+            catch (Exception e) {
+                success = false;
+            }
+            if(success)
+            {
+                if(vm.ContainsKey("tags"))
+                {
+                    if(vm.Property("tags").Value.ToObject<JObject>().ContainsKey("ASG"))
+                    {
+                        string ASGArray = "[{\"id\": \"" + ApplicationSecurityGroups.GetASGId(vm["tags"]["ASG"].ToString()) + "\"}]";
+                        JProperty asgArray = new JProperty("applicationSecurityGroups", JArray.Parse(ASGArray));
+                        JObject networkInterface = new JObject();
+                        try{
+                            networkInterface = GetNetworkInterface(vm["properties"]["networkProfile"]["networkInterfaces"][0]["id"].ToString());
+                        }
+                        catch (Exception e){
+                            return "Failed to find Network Interface";
+                        }
+                        bool appSecurity = false;
+                        try
+                        {
+                            appSecurity = networkInterface["properties"]["ipConfigurations"][0]["properties"]["applicationSecurityGroups"].HasValues;
+                        }
+                        catch (Exception e)
+                        {
+
+                        }
+                        if (appSecurity)
+                        {
+                            networkInterface["properties"]["ipConfigurations"][0]["properties"]["applicationSecurityGroups"] = JArray.Parse(ASGArray);
+                        }
+                        else
+                        {
+                            networkInterface["properties"]["ipConfigurations"][0]["properties"].Last.AddAfterSelf(asgArray);
+                        }
+                        uri = networkInterface["id"].ToString() + "?api-version=" + ASG_Management.GetEnvironmentVariable("apiVersion").Split(": ")[1];
+                        try{
+                            WebCalls.Put(uri, networkInterface.ToString());
+                            return "SUCCESS";
+                        }
+                        catch (Exception e)
+                        {
+                            return "Failed to set Network Interface";
+                        }
+                    }
+                    else
+                    {
+                        return "No ASG Tag";
+                    }
+                }
+                else
+                {
+                    return "No ASG Tag";
+                }
+            }
+            else
+            {
+                return "Failed to find VM";
+            }
+        }
+        public static string SetASG(string resourceId)
         {
             JObject networkInterface = GetNetworkInterface(resourceId);
             JArray ipConfigurations;
@@ -157,9 +232,17 @@ namespace Az.NSG
                     }
                     uri = resourceId + "?api-version=" + ASG_Management.GetEnvironmentVariable("apiVersion").Split(": ")[1];
                     result = WebCalls.Put(uri, networkInterface.ToString());
+                    return "SUCCESS";
+                }
+                else
+                {
+                    return "No ASG Tag";
                 }
             }
-            string test = result;
+            else
+            {
+                return "No ASG Tag";
+            }
         }
 
         private static JObject GetNetworkInterface(string resourceId)
