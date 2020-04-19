@@ -1,0 +1,36 @@
+{
+    "properties": {
+        "topic": "/subscriptions/{AZURE SUBSCRIPTION}",
+        "destination": {
+            "properties": {
+                "endpointUrl": null,
+                "endpointBaseUrl": "{AZURE FUNCTION URL}"
+            },
+            "endpointType": "WebHook"
+        },
+        "filter": {
+            "subjectBeginsWith": "",
+            "subjectEndsWith": "",
+            "includedEventTypes": [
+                "Microsoft.Resources.ResourceWriteSuccess",
+                "Microsoft.Resources.ResourceActionSuccess"
+            ],
+            "advancedFilters": [
+                {
+                    "values": [
+                        "/providers/Microsoft.Network/networkInterfaces/"
+                    ],
+                    "operatorType": "StringContains",
+                    "key": "subject"
+                }
+            ]
+        },
+        "labels": [],
+        "retryPolicy": {
+            "maxDeliveryAttempts": 30,
+            "eventTimeToLiveInMinutes": 1440
+        }
+    },
+    "name": "NSG-ASG",
+    "type": "Microsoft.EventGrid/eventSubscriptions"
+}
