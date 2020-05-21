@@ -1,12 +1,6 @@
 using System;
-using System.IO;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Azure.WebJobs;
-using Microsoft.Azure.WebJobs.Extensions.Http;
-using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
-using Newtonsoft.Json;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using Newtonsoft.Json.Linq;
@@ -18,12 +12,11 @@ namespace Company.Function
     public static class TagAdd
     {
         [FunctionName("TagAdd")]
-        public static async Task<IActionResult> Run([TimerTrigger("0 0 * * * *")]TimerInfo myTimer, ILogger log)
+        public static void Run([TimerTrigger("0 0 * * * *")]TimerInfo myTimer, ILogger log)
         {
             JArray vms = VirtualMachines.GetVMTags();    
             log.LogInformation(vms.ToString());
             string success = LogAnalyticsHttpClient.Post(vms.ToString());
-            return new JsonResult(vms.ToString());
         }
 
         public static string GetEnvironmentVariable(string name)
