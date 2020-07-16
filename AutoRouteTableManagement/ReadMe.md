@@ -1,5 +1,6 @@
 # Route Table Management
 ### App Setting Varibles to set in your Function Configuration
+- "apiVersion": "2019-12-01"
 - "appKey": "SECRET FOR APP"
 - "clientId": "APP ID That has rights to the Azure Subscription"
 - "location": "ANY LOCATION Ex: eastus"
