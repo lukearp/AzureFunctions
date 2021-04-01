@@ -1,0 +1,1 @@
+Powershell Function to call Graph API with SMI
