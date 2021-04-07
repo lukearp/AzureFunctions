@@ -1,0 +1,67 @@
+[
+    {
+        "subject": "/subscriptions/2ab6855d-b9f8-4762-bba5-efe49f339629/resourceGroups/rg_storage_ad/providers/Microsoft.Web/sites/lukestorage",
+        "eventType": "Microsoft.Resources.ResourceWriteSuccess",
+        "id": "46a851b1-677c-436d-b255-8d7e8b515b21",
+        "data": {
+            "authorization": {
+                "scope": "/subscriptions/2ab6855d-b9f8-4762-bba5-efe49f339629/resourceGroups/rg_storage_ad/providers/Microsoft.Web/sites/lukestorage",
+                "action": "Microsoft.Web/sites/write",
+                "evidence": {
+                    "role": "Contributor",
+                    "roleAssignmentScope": "/subscriptions/2ab6855d-b9f8-4762-bba5-efe49f339629",
+                    "roleAssignmentId": "5ea128cf004d4e94bf89257907ef7a9e",
+                    "roleDefinitionId": "b24988ac618042a0ab8820f7382dd24c",
+                    "principalId": "074d0f1bee4445cfa1f1c9dd59afca1b",
+                    "principalType": "User"
+                }
+            },
+            "claims": {
+                "aud": "https://management.core.windows.net/",
+                "iss": "https://sts.windows.net/ef3caa26-9b3d-48f1-9434-eaff760575c4/",
+                "iat": "1617726367",
+                "nbf": "1617726367",
+                "exp": "1617730267",
+                "http://schemas.microsoft.com/claims/authnclassreference": "1",
+                "aio": "ATQAy/8TAAAA67dzS5XA/uDX4+JZ9fkTusF2Pga9vWCm8ynDkZYvNzPYEO6m50cyzHvx/m9lHJpm",
+                "http://schemas.microsoft.com/claims/authnmethodsreferences": "pwd",
+                "appid": "c44b4083-3bb0-49c1-b47d-974e53cbdf3c",
+                "appidacr": "2",
+                "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/surname": "Arp",
+                "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/givenname": "Luke",
+                "groups": "297231a8-3ea9-4647-aaff-660112b3d892",
+                "ipaddr": "35.132.216.178",
+                "name": "Luke Arp",
+                "http://schemas.microsoft.com/identity/claims/objectidentifier": "074d0f1b-ee44-45cf-a1f1-c9dd59afca1b",
+                "puid": "10032000CCAEBA79",
+                "rh": "0.AVkAJqo87z2b8UiUNOr_dgV1xINAS8SwO8FJtH2XTlPL3zxZANw.",
+                "http://schemas.microsoft.com/identity/claims/scope": "user_impersonation",
+                "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier": "dJVCdG7rDZMPbw9sSGRrF3uSEcqzv-3cP8U40ekbWrA",
+                "http://schemas.microsoft.com/identity/claims/tenantid": "ef3caa26-9b3d-48f1-9434-eaff760575c4",
+                "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name": "admin@lukemsdemoe5.onmicrosoft.com",
+                "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/upn": "admin@lukemsdemoe5.onmicrosoft.com",
+                "uti": "21LJ_P_Pu0eqMp0nY9gPAQ",
+                "ver": "1.0",
+                "wids": "62e90394-69f5-4237-9190-012177145e10",
+                "xms_tcdt": "1593636091"
+            },
+            "correlationId": "284988ab-19ef-4f93-bf60-5d764daf5b1b",
+            "httpRequest": {
+                "clientRequestId": "6d167f4a-9301-4372-ba14-993d4d81200a",
+                "clientIpAddress": "35.132.216.178",
+                "method": "PATCH",
+                "url": "https://management.azure.com/subscriptions/2ab6855d-b9f8-4762-bba5-efe49f339629/resourceGroups/rg_storage_ad/providers/Microsoft.Web/sites/lukestorage?api-version=2015-08-01"
+            },
+            "resourceProvider": "Microsoft.Web",
+            "resourceUri": "/subscriptions/2ab6855d-b9f8-4762-bba5-efe49f339629/resourceGroups/rg_storage_ad/providers/Microsoft.Web/sites/lukestorage",
+            "operationName": "Microsoft.Web/sites/write",
+            "status": "Succeeded",
+            "subscriptionId": "2ab6855d-b9f8-4762-bba5-efe49f339629",
+            "tenantId": "ef3caa26-9b3d-48f1-9434-eaff760575c4"
+        },
+        "dataVersion": "2",
+        "metadataVersion": "1",
+        "eventTime": "2021-04-06T16:51:49.1851695Z",
+        "topic": "/subscriptions/2ab6855d-b9f8-4762-bba5-efe49f339629"
+    }
+]
